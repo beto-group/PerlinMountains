@@ -1,3 +1,10 @@
+/**
+ * PerlinComponent
+ * Procedural ASCII Perlin Mountains renderer.
+ * 
+ * Based on open-source CodePen ASCII noise concepts.
+ * Distributed under the MIT License.
+ */
 function PerlinComponent(props) {
     const { dc, loadScript, isFullTab, isInception, onToggleFullTab, styles, onCodeReloadRequest } = props;
     const { useState, useEffect, useRef } = dc;

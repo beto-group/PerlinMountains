@@ -16,6 +16,11 @@ tags:
   - aesthetic
   - p5js
   - background
+compatibility:
+  - Obsidian >=1.5.0
+repository:
+  - https://github.com/beto-group/PerlinMountains
+missing: []
 resources:
   - assets/perlin_mountains.webp
   - assets/perlinmountains.clip.gif
