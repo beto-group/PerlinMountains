@@ -3,8 +3,13 @@
  * Caches loaded resources in the component's assets/cache/ folder.
  */
 function getLoader(folderPath) {
-  const cacheDir = folderPath + "/assets/cache/scripts";
-  const imageCacheDir = folderPath + "/assets/cache/images";
+  // Strip trailing file if folderPath actually points to the entry markdown file
+  let basePath = folderPath;
+  if (basePath.endsWith('.md')) {
+    basePath = basePath.substring(0, basePath.lastIndexOf('/'));
+  }
+  const cacheDir = basePath + "/assets/cache/scripts";
+  const imageCacheDir = basePath + "/assets/cache/images";
 
   async function ensureDirectoryExists(adapter, path) {
     const parts = path.split('/');
