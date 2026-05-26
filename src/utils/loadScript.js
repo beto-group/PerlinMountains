@@ -6,6 +6,22 @@ function getLoader(folderPath) {
   const cacheDir = folderPath + "/assets/cache/scripts";
   const imageCacheDir = folderPath + "/assets/cache/images";
 
+  async function ensureDirectoryExists(adapter, path) {
+    const parts = path.split('/');
+    let currentPath = '';
+    for (const part of parts) {
+      if (!part) continue;
+      currentPath = currentPath ? `${currentPath}/${part}` : part;
+      if (!(await adapter.exists(currentPath))) {
+        try {
+          await adapter.mkdir(currentPath);
+        } catch (e) {
+          // ignore
+        }
+      }
+    }
+  }
+
   async function loadScript(dc, src, options = {}) {
     const {
       type = 'script',
@@ -76,9 +92,7 @@ function getLoader(folderPath) {
             // Write to cache
             if (cache) {
               try {
-                if (!(await adapter.exists(cacheDir))) {
-                  await adapter.mkdir(cacheDir);
-                }
+                await ensureDirectoryExists(adapter, cacheDir);
                 console.log(`[LoadScript] 💾 Caching to: ${cachePath}`);
                 await adapter.write(cachePath, scriptContent);
               } catch (writeError) {
@@ -213,9 +227,7 @@ function getLoader(folderPath) {
 
     try {
       const buffer = await blob.arrayBuffer();
-      if (!(await adapter.exists(imageCacheDir))) {
-        await adapter.mkdir(imageCacheDir);
-      }
+      await ensureDirectoryExists(adapter, imageCacheDir);
       await adapter.writeBinary(cachePath, buffer);
     } catch (writeError) {
       console.warn(`[ImageCache] Cache write failed:`, writeError);
