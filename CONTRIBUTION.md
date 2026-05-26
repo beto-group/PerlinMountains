@@ -12,7 +12,7 @@ Welcome! This document outlines the core developer standards, unit testing frame
 2.  **Anti-Bleed Style Isolation**:
     *   All styles must be scoped tightly under standard container class keys (`.perlin-mountains-container`) to avoid spilling into the Obsidian UI or interfering with active user themes.
 3.  **Resilient CDN Cache Caching**:
-    *   Third-party libraries (`p5.js`, `lil-gui`) must be loaded using the local `loadScript.js` utility, which manages an offline caching vault under `_resources/cache/scripts/` to ensure flawless load times.
+    *   Third-party libraries (`p5.js`, `lil-gui`) must be loaded using the local `loadScript.js` utility, which manages an offline caching vault under `assets/cache/scripts/` to ensure flawless load times.
 4.  **Polling Hot Reload Daemon**:
     *   Maintains an active watch interval checking `data/mcp_commands.json` modifications to trigger instant updates during coding sessions.
 

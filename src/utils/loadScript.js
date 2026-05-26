@@ -1,10 +1,10 @@
 /**
  * Self-contained local Script & ESM Loader for Component
- * Caches loaded resources in the component's _resources/cache/ folder.
+ * Caches loaded resources in the component's assets/cache/ folder.
  */
 function getLoader(folderPath) {
-  const cacheDir = folderPath + "/_resources/cache/scripts";
-  const imageCacheDir = folderPath + "/_resources/cache/images";
+  const cacheDir = folderPath + "/assets/cache/scripts";
+  const imageCacheDir = folderPath + "/assets/cache/images";
 
   async function loadScript(dc, src, options = {}) {
     const {
