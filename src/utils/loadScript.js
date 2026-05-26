@@ -103,19 +103,16 @@ function getLoader(folderPath) {
           try {
             let moduleExports;
             
-            if (isUrl) {
-              console.log(`[LoadScript] 📦 Importing from URL: ${src}`);
-              moduleExports = await import(src);
-            } else {
-              console.log(`[LoadScript] 📦 Importing from blob...`);
-              const blob = new Blob([scriptContent], { type: 'application/javascript' });
-              const blobUrl = URL.createObjectURL(blob);
-              
-              try {
-                moduleExports = await import(blobUrl);
-              } finally {
-                URL.revokeObjectURL(blobUrl);
-              }
+            // Always import ESM from the local cache/fetched content via Blob URL 
+            // to ensure offline parity and self-contained execution.
+            console.log(`[LoadScript] 📦 Importing from blob...`);
+            const blob = new Blob([scriptContent], { type: 'application/javascript' });
+            const blobUrl = URL.createObjectURL(blob);
+            
+            try {
+              moduleExports = await import(blobUrl);
+            } finally {
+              URL.revokeObjectURL(blobUrl);
             }
             
             console.log(`[LoadScript] ✅ Module loaded successfully`);
